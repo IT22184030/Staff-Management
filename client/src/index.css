@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+
+body{
+    font-family: "Sora", sans-serif;
+}
+
+input{
+    box-shadow: none;
+    border-radius: 2px !important;
+    border:1px solid gray !important;
+    height :30px !important;
+}
+
+input::placeholder {
+    /* Use box-shadow to hide the border */
+    box-shadow: none !important;
+}
+
+input:focus{
+    outline: none !important;
+    box-shadow: none !important;
+    border: 1px solid gray !important;
+}
+
+label{
+    font-size: 16px !important;
+    color:black ;
+}
+
+.ant-form-item{
+    margin: 10px 0 !important;
+}
+
+.card title{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.normal-text{
+    font-size: 1rem;
+}
+/*comon styling */
+.card{
+    box-shadow: 0 0 2px gray;
+    border-radius: 0 !important;
+}
+
+.primary-button{
+    background-color: rgb(25, 205, 205);
+    border-color: aquamarine;
+    height: 40px;
+    width: 100x;
+    color:aliceblue;
+    font-size: 18px;
+}
+
+.attendance {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(71, 195, 195);
+    background-image: url("https://arkansasfamilydental.com/wp-content/uploads/2024/01/howcases-a-close-up-view-of-clear-invisalign-trays-with-a-focus-on-their-transparent-and-custom_670e31a886141d7963b9905cef7c6a8a_2000.jpg");
+}
+
+.attendance-form-card {
+    border: 2px solid rgb(41, 109, 191);
+    width:400px;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: rgb(146, 199, 225);
+    box-shadow: 0 0 5px hsla(181, 81%, 35%, 0.1);
+}
+
+
+.attendance .card-title{
+    font-size:1.5rem;
+    font-weight: bold;
+    background-color: rgb(110, 174, 239);
+    color: white;
+    max-width:max-content  !important;
+    padding: 7px 15px;
+    margin-left: -60px;
+    border-bottom-left-radius: 10px;
+
+}
+
+.category{
+    border: 2px solid gray;
+    margin:10px;
+    padding:6px;
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+.category-active{
+    border:2px solid rgb(86, 90, 113);
+    background-color: rgb(101, 140, 189);
+}
+
+/* Custom styles for the search button */
+.search-button {
+    background-color: #90c9e0; 
+    border-color: #b7deed; 
+    color: #fff; 
+  }
+  
+  /* Hover effect for the search button */
+  .search-button:hover {
+    background-color: #a5b3d8; /* Darker shade of orange on hover */
+    border-color: #ff7043; /* Darker shade of orange on hover */
+  }
+  
