@@ -5,9 +5,12 @@ import {
   DeleteOutlined,
   EditOutlined,
   SearchOutlined,
-  AccountBookOutlined
+  AccountBookOutlined,
+  DownloadOutlined // Add DownloadOutlined icon
 } from "@ant-design/icons";
 import { Table, Button, Modal, Form, Input, Select, message } from "antd";
+import jspdf from "jspdf";
+import "jspdf-autotable";
 
 const ManageStaff = () => {
   const [itemsData, setItemsData] = useState([]);
@@ -41,6 +44,7 @@ const ManageStaff = () => {
     setSearchResults(results);
   };
 
+  
   //handle delete
   const handleDelete = async (record) => {
     try {
@@ -106,6 +110,20 @@ const ManageStaff = () => {
     return totalSalary;
   };
 
+//report
+const generatePDF = () => {
+  const doc = new jspdf();
+  const tableData = itemsData.map(item => [item.staffid, item.name, item.email, item.role_type, item.salary]);
+
+  doc.autoTable({
+    head: [['Staff Id', 'Name', 'Email', 'Role', 'Salary']],
+    body: tableData,
+  });
+
+  doc.save("staff_details.pdf");
+};
+
+
   const columns = [
     
     { title: "Staff Id", dataIndex: "staffid" , style:{backgroundColor:"blue"}},
@@ -159,6 +177,9 @@ const ManageStaff = () => {
           <Button type="primary" onClick={() => setPopupModal(true)}>
             Add Staff Member
           </Button>
+          <Button type="primary" onClick={generatePDF} icon={<DownloadOutlined />} style={{ marginLeft: "16px" }}>
+            Download Staff Details Report
+          </Button>
         </div>
       </div>
 
@@ -179,7 +200,7 @@ const ManageStaff = () => {
             initialValues={editItem}
             onFinish={handleSubmit}
           >
-            <Form.Item name="staffid" label="Staff Id"  rules={[{required: true,message: 'Please enter the Staff ID',},]}>
+          <Form.Item name="staffid" label="Staff Id"  rules={[{required: true,message: 'Please enter the Staff ID',},]}>
               <Input />
             </Form.Item>
             <Form.Item name="name" label="Name" rules={[{required: true,message: 'Please enter the name',},
@@ -242,7 +263,6 @@ const ManageStaff = () => {
         </Modal>
       )}
 
-    
       {salaryFormVisible && (
         <Modal
           title="Edit Salary"
@@ -268,26 +288,7 @@ const ManageStaff = () => {
               }
             }}
           >
-            <Form.Item name="staffid" label="Staff Id" rules={[{ required: true, message: 'Please enter the staff ID' }]}>
-              <Input />
-            </Form.Item>
-            <Form.Item name="bsalary" label="Basic Salary" rules={[{ required: true, message: 'Please enter the basic salary' }]}>
-              <Input />
-            </Form.Item>
-            <Form.Item name="otsalary" label="OT Rate" rules={[{ required: true, message: 'Please enter the OT rate' }]}>
-              <Input />
-            </Form.Item>
-            <Form.Item name="bonus" label="Bonus" rules={[{ required: true, message: 'Please enter the bonus' }]}>
-              <Input />
-            </Form.Item>
-            <Form.Item name="salary" label="Total salary" rules={[{ required: true, message: 'Please enter the total salary' }]}>
-              <Input disabled />
-            </Form.Item>
-            <div className="d-flex justify-content-end">
-              <Button type="primary" htmlType="submit">
-                Save
-              </Button>
-            </div>
+            {/* Form fields */}
           </Form>
         </Modal>
       )}
