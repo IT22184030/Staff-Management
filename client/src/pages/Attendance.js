@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from "react";
 import DefaultLayout from "./../components/DefaultLayout";
 import axios from "axios";
-import { DeleteOutlined } from "@ant-design/icons";
-import { Table, message } from "antd";
+import { DeleteOutlined, DownloadOutlined } from "@ant-design/icons";
+import { Table, Button, message } from "antd";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const Attendance = () => {
   const [attendanceData, setAttendanceData] = useState([]);
 
-  //read
   useEffect(() => {
-    const fetchAttendanceData = async () => {
-      try {
-        const response = await axios.get("/api/attends/get-attend");
-        setAttendanceData(response.data);
-      } catch (error) {
-        message.error("Failed to fetch attendance data");
-        console.error(error);
-      }
-    };
-
     fetchAttendanceData();
   }, []);
+
+  const fetchAttendanceData = async () => {
+    try {
+      const response = await axios.get("/api/attends/get-attend");
+      setAttendanceData(response.data);
+    } catch (error) {
+      message.error("Failed to fetch attendance data");
+      console.error(error);
+    }
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -32,64 +33,74 @@ const Attendance = () => {
     const hours = time.getHours().toString().padStart(2, "0");
     const minutes = time.getMinutes().toString().padStart(2, "0");
     const seconds = time.getSeconds().toString().padStart(2, "0");
-    return `${hours}.${minutes}.${seconds}`;
+    return `${hours}:${minutes}:${seconds}`;
   };
 
-  //handle delete
   const handleDelete = async (record) => {
     try {
-      await axios.delete(`/api/attends/delete-attend/${record._id}`); // Include attendId in the URL
-      setAttendanceData((prevData) =>
-        prevData.filter((attend) => attend._id !== record._id)
-      );
+      await axios.delete(`/api/attends/delete-attend/${record._id}`);
+      fetchAttendanceData();
       message.success("Attendance record deleted successfully");
     } catch (error) {
       message.error("Failed to delete attendance record");
       console.error(error);
     }
   };
-  
+
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    const tableData = attendanceData.map((item) => [
+      item.staffid,
+      item.name,
+      formatDate(item.date),
+      formatTime(item.time),
+    ]);
+
+    doc.autoTable({
+      head: [["Staff ID", "Name", "Date", "Time"]],
+      body: tableData,
+    });
+
+    doc.save("attendance_details.pdf");
+  };
 
   const columns = [
-    {
-      title: "Staff ID",
-      dataIndex: "staffid",
-      key: "staffid",
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
+    { title: "Staff ID", dataIndex: "staffid" },
+    { title: "Name", dataIndex: "name" },
     {
       title: "Date",
       dataIndex: "date",
-      key: "date",
       render: (date) => <span>{formatDate(date)}</span>,
     },
     {
       title: "Time",
       dataIndex: "time",
-      key: "time", 
       render: (time) => <span>{formatTime(time)}</span>,
     },
     {
       title: "Actions",
-      dataIndex: "_id",
-      render: (_id, record) => (
-        <span>
-          <DeleteOutlined
-            style={{ cursor: "pointer" }}
-            onClick={() => handleDelete(record)}
-          />
-        </span>
+      render: (_, record) => (
+        <DeleteOutlined
+          style={{ cursor: "pointer" }}
+          onClick={() => handleDelete(record)}
+        />
       ),
     },
   ];
 
   return (
     <DefaultLayout>
-      <h1 style={{background:'rgb(125,210,240)',width:'460px', borderRadius:'20px',padding:'10px'}}>Staff Attendance Record</h1>
+      <div className="d-flex justify-content-between">
+        <h1 style={{background:'rgb(125,210,240)',width:'460px', borderRadius:'20px',padding:'10px'}}>Staff Attendance Record</h1>
+        <Button
+          type="primary"
+          onClick={generatePDF}
+          icon={<DownloadOutlined />}
+          style={{ marginLeft: "16px" }}
+        >
+          Download Attendance Report
+        </Button>
+      </div>
       <Table columns={columns} dataSource={attendanceData} />
     </DefaultLayout>
   );
