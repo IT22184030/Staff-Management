@@ -32,7 +32,7 @@ function MarkAttendance() {
           <Form.Item label="Date" name="date" rules={[{ required: true, message: "Please select Date" }]}>
             <DatePicker />
           </Form.Item>
-          <Form.Item label="Time" name="time" rules={[{ required: true, message: "Please select Date"}]}>
+          <Form.Item label="Time" name="time" rules={[{ required: true, message: "Please select Time"}]}>
             <TimePicker format="HH:mm:ss" />
           </Form.Item>
           <Button className="primary-button at-3" type="primary" htmlType="submit">
