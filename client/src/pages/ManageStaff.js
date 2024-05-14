@@ -6,11 +6,12 @@ import {
   EditOutlined,
   SearchOutlined,
   AccountBookOutlined,
-  DownloadOutlined // Add DownloadOutlined icon
+  DownloadOutlined 
 } from "@ant-design/icons";
 import { Table, Button, Modal, Form, Input, Select, message } from "antd";
 import jspdf from "jspdf";
 import "jspdf-autotable";
+
 
 const ManageStaff = () => {
   const [itemsData, setItemsData] = useState([]);
@@ -19,7 +20,7 @@ const ManageStaff = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [salaryFormVisible, setSalaryFormVisible] = useState(false);
-  const [form] = Form.useForm(); // Define form instance
+  const [form] = Form.useForm(); 
 
   useEffect(() => {
     getAllItems();
@@ -126,7 +127,7 @@ const generatePDF = () => {
 
   const columns = [
     
-    { title: "Staff Id", dataIndex: "staffid" , style:{backgroundColor:"blue"}},
+    { title: "Staff Id", dataIndex: "staffid" },
     { title: "Name", dataIndex: "name" },
     { title: "Email", dataIndex: "email" },
     { title: "Role", dataIndex: "role_type" },
@@ -134,6 +135,7 @@ const generatePDF = () => {
       title: "Salary",
       dataIndex: "salary",
     },
+    
     {
       title: "Actions",
       dataIndex: "_id",
