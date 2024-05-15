@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from 'antd';
 
 const ItemList = ({ item }) => {
-    // Define colors based on the item's role_type or any other property
+   
     const colors = {
         Dentist: '#dcecfd', 
         Nurse: '#dcecfd',    
@@ -14,7 +14,7 @@ const ItemList = ({ item }) => {
         
     };
 
-    // Get the color for the current role_type
+    
     const color = colors[item.role_type] || '#000000'; 
 
     return (
@@ -25,7 +25,7 @@ const ItemList = ({ item }) => {
                 style={{
                     width: 300,
                     marginBottom: 50,
-                    backgroundColor: color, // Apply background color dynamically
+                    backgroundColor: color, 
                 }}
             >
                 <p>{item.staffid}</p>
