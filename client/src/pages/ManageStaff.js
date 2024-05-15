@@ -11,7 +11,7 @@ import {
 import { Table, Button, Modal, Form, Input, Select, message } from "antd";
 import jspdf from "jspdf";
 import "jspdf-autotable";
-
+ 
 
 const ManageStaff = () => {
   const [itemsData, setItemsData] = useState([]);
@@ -290,7 +290,26 @@ const generatePDF = () => {
               }
             }}
           >
-            {/* Form fields */}
+          <Form.Item name="staffid" label="Staff Id" rules={[{ required: true, message: 'Please enter the staff ID' }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="bsalary" label="Basic Salary" rules={[{ required: true, message: 'Please enter the basic salary' }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="otsalary" label="OT Rate" rules={[{ required: true, message: 'Please enter the OT rate' }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="bonus" label="Bonus" rules={[{ required: true, message: 'Please enter the bonus' }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="salary" label="Total salary" rules={[{ required: true, message: 'Please enter the total salary' }]}>
+              <Input disabled />
+            </Form.Item>
+            <div className="d-flex justify-content-end">
+              <Button type="primary" htmlType="submit">
+                Save
+              </Button>
+            </div>
           </Form>
         </Modal>
       )}
