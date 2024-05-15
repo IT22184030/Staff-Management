@@ -274,7 +274,7 @@ const generatePDF = () => {
         >
           <Form
             layout="vertical"
-            form={form} // Pass the form instance
+            form={form} 
             onFinish={handleSalaryFormSubmit}
             initialValues={{ 
               staffid: editItem?.staffid,
