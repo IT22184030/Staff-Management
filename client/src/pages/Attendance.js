@@ -25,7 +25,7 @@ const Attendance = () => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toISOString().slice(0, 10); // Format: YYYY-MM-DD
+    return date.toISOString().slice(0, 10); 
   };
 
   const formatTime = (timeString) => {
