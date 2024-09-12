@@ -31,7 +31,7 @@ This project was developed using the following tools and frameworks to ensure a 
 ## Getting Started
 
 To clone the repository:
-``` git clone: https://github.com/IT22184030/Staff-Management
+git clone: https://github.com/IT22184030/Staff-Management
 
 ### For development and testing, ensure you have the following prerequisites:
 
